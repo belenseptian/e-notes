@@ -1,0 +1,7 @@
+
+Domain	TTL	Class	Type	Priority	Destination		
+freelancerbangka.xyz.	14400	IN	A		3.131.36.40	
+www	14400	IN	CNAME		freelancerbangka.xyz	
+*	14400	IN	A		3.131.36.40	
+freelancerbangka.xyz.	14400	IN	MX	0	freelancerbangka.xyz	
+_60671db1d0e872cf090b5c26d5ba847c	14400	IN	CNAME		_c7d2cf22476ee7d618c1ecc65cfc0a4c.gjjrqxwdmz.acm-validations.aws	

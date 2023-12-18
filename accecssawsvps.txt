@@ -1,0 +1,33 @@
+launch ec2 instance
+
+add custom tcp :0.0.0.0, ::/0
+generate a new key
+
+how to access ec2?
+
+open git bash
+ssh -i ".pem file" ubuntu@public_ip_address
+choose yes
+sudo -i //obtain root access
+sudo apt update
+
+how to install npm?
+
+sudo apt install npm
+
+npm i n -g
+
+
+how to install node?
+
+n lts
+npm i yarn -g //install yarn package to create package.json
+
+how to create node project?
+
+mkdir directory_name //create a project folder
+yarn init //create package.json
+yarn add express --save //install express js
+
+
+current connection : ssh -i "nodejs.pem" root@3.131.36.40

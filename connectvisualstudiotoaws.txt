@@ -1,0 +1,8 @@
+install remote development extension in visual studio code
+
+enter this config
+
+Host aws
+  HostName public_ip_address
+  IdentityFile C:\Users\ACER\nodejs.pem //file must be located in the user path
+  User ubuntu/root/User_name_whateveritis

@@ -1,0 +1,44 @@
+//plugins saved in providers
+
+ionic start nama_project tabs --type=angular //buat project baru dengan tab
+ionic start nama_project blank --type=angular //buat project baru blank
+ionic serve --lab //emulator ios dan android di browser
+ionic serve //emulator di browser
+npm run ng serve //compile project
+http://ionicons.com //ionic icon
+npm run build //create www folder
+
+set ANDROID_HOME=C:\Users\asus\AppData\Local\Android\sdk //set ANDROID_HOME variable
+set PATH=%PATH%;%ANDROID_HOME%\tools;%ANDROID_HOME%\platform-tools //set ANDROID_HOME variable
+
+
+ionic cordova emulate android  //build and emulate app in android emulator
+ionic g page <pageName>  //membuat halaman baru
+ionic cordova build android //build android apk only
+npm install rxjs@6 rxjs-compat@6 --save //install rxjs v6
+
+//plugins required to upload image
+
+ionic cordova plugin add cordova-plugin-splashscreen
+
+npm install @ionic-native/splash-screen
+
+ionic cordova plugin add cordova-plugin-camera
+
+npm install @ionic-native/camera
+
+ionic cordova plugin add cordova-plugin-file-transfer
+
+npm install @ionic-native/file-transfer
+
+ionic cordova plugin add cordova-plugin-file
+
+npm install @ionic-native/file
+
+
+ionic generate service [service/provider name]  //generate new provider
+
+cordova plugin add cordova-android-support-gradle-release //add android gradle
+
+
+npm install -g ionic@4.10.3

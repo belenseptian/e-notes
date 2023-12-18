@@ -1,0 +1,11 @@
+login to vps
+
+type sudo nano /etc/ssh/sshd_config
+change permitlogin to yes on authentication section
+save
+
+enable root password type
+sudo passwd root
+
+type sudo cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/
+type sudo reboot

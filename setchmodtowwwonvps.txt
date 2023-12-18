@@ -1,0 +1,2 @@
+sudo chown -R www:www folder_name/
+sudo chmod -R 777 storage

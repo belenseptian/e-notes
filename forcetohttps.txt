@@ -1,0 +1,64 @@
+php artisan make:middleware HttpsProtocol
+
+namespace MyApp\Http\Middleware;
+
+use Closure;
+use Illuminate\Support\Facades\App;
+
+class HttpsProtocol {
+
+    public function handle($request, Closure $next)
+    {
+            if (!$request->secure() && App::environment() === 'production') {
+                return redirect()->secure($request->getRequestUri());
+            }
+
+            return $next($request); 
+    }
+}
+Then, apply this middleware to every request adding setting the rule at Kernel.php file, like so:
+
+protected $middleware = [
+    'Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode',
+    'Illuminate\Cookie\Middleware\EncryptCookies',
+    'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
+    'Illuminate\Session\Middleware\StartSession',
+    'Illuminate\View\Middleware\ShareErrorsFromSession',
+
+    // appending custom middleware 
+    'MyApp\Http\Middleware\HttpsProtocol'       
+
+];
+
+then open appserviceprovider.php change into this
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\URL;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        Schema::defaultStringLength(191);
+        URL::forceScheme('https');
+    }
+}

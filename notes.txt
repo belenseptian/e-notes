@@ -1,0 +1,24 @@
+-install node js
+-install nodered
+npm install -g --unsafe-perm node-red
+-install nodered dashboard
+npm install node-red-dashboard
+-run node red
+node-red
+-install emqx
+download from emqx official website
+go to bin folder, then run the following
+emqx start
+go to http://ip-address:18083
+enter username:admin    password:public
+-or you can just open emqx cloud
+
+
+
+** Dont forget to deploy whenever flow change is made **
+
+-mqtt broker credentials
+const char *mqtt_broker = "f111ecc2.ala.us-east-1.emqxsl.com";// broker address
+const char *mqtt_username = "conn_test"; // username for authentication
+const char *mqtt_password = "12345";// password for authentication
+const int mqtt_port = 8883;// port of MQTT over TLS/SSL

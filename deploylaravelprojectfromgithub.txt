@@ -1,0 +1,50 @@
+sudo apt-get update
+sudo apt -y install software-properties-common
+sudo add-apt-repository ppa:ondrej/php
+sudo apt -y install php7.4
+sudo apt-get install -y php7.4-cli php7.4-json php7.4-common php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath
+sudo apt-get install mysql-server
+sudo mysql -u root -p //create mysql password
+sudo apt-get install nginx //install nginx server
+stop apache2 if its installed
+sudo apt-get install zip unzip
+
+install php7.4-fpm
+sudo apt-get install php7.4-fpm 
+systemctl start php7.4-fpm
+systemctl enable php7.4-fpm
+sudo service nginx restart
+
+install git
+
+sudo apt-get install git
+ssh-keygen -t rsa -b 4096 -C "github"
+cat id_rsa.pub //copy key in .ssh folder
+open github ->choose repository ->choose settings ->choose deploy keys ->enter copied key here
+ssh -T git@github.com //connect github repo to ec2
+
+install composer
+
+curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+go to project directory
+
+do a configuration to a following file
+
+/etc/nginx/sites-available 
+
+
+go to /var/www/html //put laravel project here
+sudo chmod -R 777 storage
+sudo service nginx restart
+
+
+how to stop nginx?
+
+sudo service nginx stop
+
+access to storage is denied?
+
+php artisan cache:clear 
+chmod -R 777 storage
+chmod -R 777 storage/
+composer dump-autoload

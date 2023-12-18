@@ -1,0 +1,31 @@
+ionic start myApp tabs //create new project with tabs
+
+tabs: A tabs based layout
+sidemenu: A sidemenu based layout
+blank: An empty project with a single page
+
+
+ionic serve //run in browser
+ionic start photo-gallery tabs --type=angular --capacitor //create app with tabs using capacitor
+npm install @ionic/pwa-elements //install pwa elements for capacitor
+ionic build //add new www folder (required to add capacitor)
+ionic capacitor add android //add capacitor
+ionic capacitor copy android //copy project files to android folder
+ionic cordova prepare android //prepare cordova
+ionic cordova run android -l //running with cordova
+ionic cordova emulate android --list //get list of android devices
+ionic cordova emulate android --target=target_name //build and run application on specific emulator/device
+ionic cordova emulate android --target=Pixel_3_API_25
+ionic cordova run android --no-native-run
+
+add android sdk path to environment variable
+
+set ANDROID_SDK_ROOT=C:\Users\ACER\AppData\Local\Android\Sdk
+set PATH=%PATH%;%ANDROID_SDK_ROOT%\tools\bin
+set PATH=%PATH%;%ANDROID_SDK_ROOT%\platform-tools
+set PATH=%PATH%;%ANDROID_SDK_ROOT%\emulator
+
+add license
+
+go to C:\Users\ACER\AppData\Local\Android\Sdk\tools\bin
+run command line and write sdkmanager --licenses

@@ -1,0 +1,45 @@
+git commit -a automatically stage all tracked, modified files before the commit
+
+Execute these commands subsequently
+
+git init //prepare selected folder to be a local repository
+git add -f . //add all subfolders to a local repository
+git status //check status of the repository
+git commit -am "your_message" //do a commit on the local repository
+git log //check log data
+if git_exists
+ git remote set-url origin your_clone_url //update remote repo for local repo
+else
+ git remote add origin your_clone_url //add new remote repository for local repo
+git push -f origin master //upload local repository to remote repository
+
+
+//how to work in a team using bitbucket (clone, push, make a pull request)
+
+add permission to a new member
+
+git clone https://belen1609@bitbucket.org/belen16/rolling_tech_test.git //clone the repository, get the url from bitbucket account
+
+git branch //verify the branch in which repository is located
+
+git add README.md //add a specific file into a repository
+
+git status //check the status of current repository
+
+git commit -m "README.md has been revised" // commit the repository
+
+git checkout -b documentation/example //checkout the repository into a new branch
+
+git push //push local repository to the remote repository
+
+make a pull request in bitbucket account
+
+
+git config --global http.version HTTP/1.1 //change to HTTP/1.1 (for slow net only)
+git config --global http.version HTTP/2 //change to HTTP/2
+git push origin --delete <your branch name of your PR> //delete selected branch
+
+git pull //update local repository from remote server
+git stash //revert all the changes
+
+

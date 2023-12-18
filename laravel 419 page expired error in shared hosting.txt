@@ -1,0 +1,20 @@
+There are a few things you can try to fix this. Typically this error occurs when you are missing your csrf token within your form, but it looks like you've already got that there. Here are a few things you can try
+
+*Try clearing your cache and config via
+
+php artisan config:cache
+
+php artisan cache:clear
+
+If you've been messing around with config files, this will clear the cache and apply your changes.
+
+*Try to generate a new app key, which will flush the session data.
+
+php artisan key:generate
+*It looks like you are using the file session driver, which means sessions are stored in storage/framework/sessions, you might have permission issues with the /storage directory.
+
+*Try adding SESSION_DOMAIN=mydomain.com to your .env file, then clear your cache.
+
+*Try hard refreshing your browser with CTRL + F5
+
+f none of those options work, try to comment out \App\Http\Middleware\VerifyCsrfToken::class, within your web $middlewareGroups in app/kernel.php, if it works after commenting that line out, then we definitely know there's a problem with your Csrf verification

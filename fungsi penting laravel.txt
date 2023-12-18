@@ -1,0 +1,56 @@
+php artisan make:model Game //membuat model baru untuk db
+php artisan --version //versi laravel
+composer create-project --prefer-dist laravel/laravel nama_folder //buat project baru
+php artisan make:controller NamaController //buat controller baru
+php artisan make:migration nama_migration_file --create=nama_table_database //buat file migration baru untuk db
+php artisan migrate //wajib dipanggil untuk melakukan perubahan database mysql
+php artisan make:migration nama_migration_file //buat file migration baru tanpa membuat db
+php artisan make:middleware NamaMiddleware //membuat middleware baru
+composer require doctrine/dbal //composer yang diperlukan untuk mengubah atribut db
+php artisan queue:table //membuat queue database
+php artisan make:mail namaController //membuat controller email
+php artisan make:job namaJob //membuat job baru
+
+//call following commands alternately
+php artisan config:cache //membersihkan cache
+php artisan config:clear //membersihkan konfigurasi
+php artisan serve --host 192.168.1.101 --port 80 // run laravel with specific ip
+php artisan key:generate //generate a new key
+
+php artisan queue:work //menjalankan queue
+php artisan make:controller controller_name --resource //make a new controller on laravel 8.x
+php artisan make:test testName //create a new test
+php artisan route:list //displaying all the available routes
+php artisan test --filter test_name //executing a testing unit/feature
+composer require midtrans/midtrans-php //install midtrans library
+
+php artisan storage:link
+
+composer create-project --prefer-dist laravel/laravel="7.*" nama_folder //create new project using laravel 7.*
+
+composer require doctrine/dbal //used to alter database
+php artisan make:model model_name -m //create a model file along with migration
+
+
+public/images/gfcT1Sr30WcNLNZf7VgmUGLsEp3lJOhCzhLBE8ep.jpeg //location of uploaded images
+
+php artisan make:controller BookController --resource --model=Book //create a new controller along with model
+
+//to clear cache in remote server
+
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('config:cache');
+    return 'DONE'; //Return anything
+});
+
+Route::get('/clear-config', function() {
+    $exitCode = Artisan::call('config:clear');
+    return 'DONE'; //Return anything
+});
+
+Delete config.php located in bootstrap folder
+
+
+composer require lcobucci/jwt //plugin to use passport in case error occurs
+
+php artisan make:controller controller_name --api --model=CEO //create a new api controller with model

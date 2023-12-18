@@ -1,0 +1,19 @@
+cp /etc/nginx/sites-available/default /etc/nginx/sites-available/your_domain_name
+open /etc/nginx/sites-available/your_domain_name
+
+change server_name to 
+
+server_name your_domain_name www.your_domain_name;
+
+unlink /etc/nginx/sites-enabled/default
+
+ln -s /etc/nginx/sites-available/your_domain_name /etc/nginx/sites-enabled/your_domain_name
+
+nginx -t //check config files
+
+service nginx restart
+
+sudo apt-get update
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get install python-certbot-nginx
+certbot --nginx -d game4tune.com -d www.game4tune.com

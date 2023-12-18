@@ -1,0 +1,224 @@
+//public api (not used)
+Route::get('fetch-items',[ApiController::class, 'fetchItems']);
+Route::get('fetch-item/{id}',[ApiController::class, 'fetchItem']);
+Route::post('login',[ApiController::class, 'login']);
+Route::post('create-item',[ApiController::class, 'createItem']);
+Route::put('edit-item/{id}',[ApiController::class, 'editItem']);
+Route::delete('delete-item/{id}',[ApiController::class, 'deleteItem']);
+Route::post('redeem-item/{id}',[ApiController::class, 'redeemItem']);
+Route::post('rate-item/{id}',[ApiController::class, 'rateItem']);
+Route::post('/payment/notification',[PaymentController::class, 'notification']);
+Route::get('/payment/finish',[PaymentController::class, 'finish']);
+Route::get('/payment/unfinish',[PaymentController::class, 'unfinish']);
+Route::get('/payment/error',[PaymentController::class, 'error']);
+
+
+public function login(Request $request)
+    {
+        $find = User::where('email', request('username'))->first();      
+        
+        if($find)
+		{
+            if(Hash::check(request('password'),$find->password))
+			{
+                $token = Hash::make(rand(0,10000));
+                $token_ =  substr($token,0,10);
+                User::where('email', request('username'))->update(['remember_token' => $token_]);
+                $parameters = array(
+                    'token'=>$token_,
+                    'user'=>$find
+                );
+                
+                $response = APIHelpers::createAPIResponse(false, 200, 'Login is successful', $parameters);
+            }
+            else
+            {
+                $response = APIHelpers::createAPIResponse(true, 401, 'Login is not successful', []);
+            }
+        }
+        else
+        {
+            $response = APIHelpers::createAPIResponse(true, 404, 'Username is not found', []);
+        }
+        
+
+        return response()->json($response, 200);
+    }
+
+    public function fetchItems()
+    {
+        $items = Item::all();
+        
+        $response = APIHelpers::createAPIResponse(false, 200, 'NULL', $items);
+
+        return response()->json($response, 200);
+    }
+
+    public function fetchItem($id)
+    {
+        $item = Item::where('id', $id)->first();
+        $parameters = array(
+            'item'=>$item
+        );
+
+        $response = APIHelpers::createAPIResponse(false, 200, 'NULL', $parameters);
+
+        return response()->json($response, 200);
+    }
+
+    public function createItem(Request $request)
+    {
+        $find = User::where('remember_token', request('token'))->first();
+       
+        if($find)
+		{
+            $item = new Item;
+				
+            $item->title=request('title');
+            $item->short_description=request('short_description');
+            $item->long_description=request('long_description');
+            $item->img=request('img');
+            $item->stock=request('stock');
+            $item->sold=0;
+            $item->view=0;
+            $item->poin=0;
+            $item->rating=0;
+            $item->review=0;
+            $item->timestamp=time();
+            $item->redeem=0;
+            $item->save();
+
+            $response = APIHelpers::createAPIResponse(false, 200, 'Item is successfully registered', []);
+        }
+        else
+        {
+            $response = APIHelpers::createAPIResponse(true, 404, 'Token is not authorized', []);
+        }
+
+        return response()->json($response, 200);
+    }
+
+    public function editItem(Request $request, $id)
+    {
+        $find = User::where('remember_token', $request->token)->first();
+       
+        if($find)
+		{
+            $item = Item::find($id);
+            if($item)
+            {
+                $item->title = $request->title;
+                $item->short_description = $request->short_description;
+                $item->long_description = $request->long_description;
+                $item->img = $request->img;
+                $item->stock = $request->stock;
+                $item->update();
+                $response = APIHelpers::createAPIResponse(false, 200, 'Item is successfully modified', []);
+            }
+            else
+            {
+                $response = APIHelpers::createAPIResponse(true, 200, 'Item is not found', []);
+            }
+
+            
+        }
+        else
+        {
+            $response = APIHelpers::createAPIResponse(true, 404, 'Token is not authorized', []);
+        }
+
+        return response()->json($response, 200);
+    }
+
+    public function deleteItem(Request $request, $id)
+    {
+        $find = User::where('remember_token', $request->token)->first();
+       
+        if($find)
+		{
+            $item = Item::find($id);
+            if($item)
+            {
+                $item->delete();
+
+                $response = APIHelpers::createAPIResponse(false, 200, 'Item is successfully deleted', []);
+            }
+            else
+            {
+                $response = APIHelpers::createAPIResponse(true, 200, 'Item is not found', []); 
+            }
+        }
+        else
+        {
+            $response = APIHelpers::createAPIResponse(true, 404, 'Token is not authorized', []);
+        }
+
+        return response()->json($response, 200);
+    }
+
+    public function redeemItem(Request $request, $id)
+    {
+        $find = User::where('remember_token', $request->token)->first();
+       
+        if($find)
+		{
+            $item = Item::find($id);
+            if($item)
+            {
+                
+                $stock = $item->stock;
+                if($stock>0)
+                {
+                    $redeem = $item->redeem + 1;
+                    $stock_ = $stock - 1;
+                    $item->redeem = $redeem;
+                    $item->stock = $stock_;
+                    $item->update();
+                    $response = APIHelpers::createAPIResponse(false, 200, 'Item is successfully redeemed', []); 
+                }
+                else
+                {
+                    $response = APIHelpers::createAPIResponse(true, 200, 'Out of Stock', []);  
+                }
+             
+            }
+            else
+            {
+                $response = APIHelpers::createAPIResponse(true, 200, 'Item is not found', []); 
+            }
+        }
+        else
+        {
+            $response = APIHelpers::createAPIResponse(true, 404, 'Token is not authorized', []);
+        }
+
+        return response()->json($response, 200);
+    }
+
+    public function rateItem(Request $request, $id)
+    {
+        $find = User::where('remember_token', $request->token)->first();
+       
+        if($find)
+		{
+            $item = Item::find($id);
+            if($item)
+            {
+                $rating = ($item->rating + $request->rating)/2;
+                $item->rating = $rating;
+                $item->update();
+                $response = APIHelpers::createAPIResponse(false, 200, 'Item is successfully rated', []); 
+
+            }
+            else
+            {
+                $response = APIHelpers::createAPIResponse(true, 200, 'Item is not found', []); 
+            }
+        }
+        else
+        {
+            $response = APIHelpers::createAPIResponse(true, 404, 'Token is not authorized', []);
+        }
+
+        return response()->json($response, 200);
+    }
