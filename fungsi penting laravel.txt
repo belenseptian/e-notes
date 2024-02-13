@@ -10,6 +10,7 @@ composer require doctrine/dbal //composer yang diperlukan untuk mengubah atribut
 php artisan queue:table //membuat queue database
 php artisan make:mail namaController //membuat controller email
 php artisan make:job namaJob //membuat job baru
+php artisan tinker //berinteraksi dengan data tanpa harus mengakses server lokal
 
 //call following commands alternately
 php artisan config:cache //membersihkan cache
