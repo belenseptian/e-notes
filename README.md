@@ -1,1 +1,1 @@
-# Collection of procedures or notes on software and programming languages
+# Collection of procedures or notes of software and programming languages
