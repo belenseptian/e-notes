@@ -1,0 +1,6 @@
+access mariadb database
+
+mariadb -u root -p //login to the database
+show databases; //display all the databases
+use database_name //select a particular database from root
+show tables // display all the tables in a database
