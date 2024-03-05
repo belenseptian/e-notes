@@ -1,0 +1,18 @@
+pull bitnami/laravel image from docker hub
+
+list of commands, wherein (x) highlights the nth command
+
+(1)
+docker network create laravel-network
+
+(2)
+docker volume create --name mariadb_data
+
+(3)
+docker run -d --name mariadb --env ALLOW_EMPTY_PASSWORD=yes --env MARIADB_USER=bn_myapp --env MARIADB_DATABASE=bitnami_myapp --network laravel-network --volume mariadb_data:/bitnami/mariadb bitnami/mariadb:latest
+
+"%cd%" = get current directory on windows environment ; ${PWD} = ubuntu
+(4)
+docker run -d --name laravel -p 8080:8080 --env DB_HOST=mariadb --env DB_PORT=3306 --env DB_USERNAME=bn_myapp --env DB_DATABASE=bitnami_myapp --network laravel-network --volume "%cd%"/my-project:/app bitnami/laravel:10.3.3-debian-11-r3
+
+docker run -d --name nginx -p 8080:8080 --env DB_HOST=mariadb --env DB_PORT=3306 --env DB_USERNAME=bn_myapp --env DB_DATABASE=bitnami_myapp --network nginx-network --volume "%cd%"/nginx-project:/app bitnami/nginx:latest
